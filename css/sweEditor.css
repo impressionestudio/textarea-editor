@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@300&family=Sawarabi+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: #444;
+}
+
+#develop {
+	width: 800px;
+	height: 400px;
+	font-size: 14px;
+}
+
+.sweEditor_frame {
+	display: inline-flex;
+	padding: 0 5px 0 0;
+	margin: 10px;
+	border: 1px solid #bbb;
+	background-color: rgb(34, 34, 34);
+	scrollbar-width: 3px;
+	scrollbar-color: #999 transparent;
+	overflow: auto;
+}
+
+.sweEditor_frame::-webkit-scrollbar {
+	width: 3px;
+	height: 3px;
+}
+.sweEditor_frame::-webkit-scrollbar-track{
+	background-color: transparent;
+}
+.sweEditor_frame::-webkit-scrollbar-thumb{
+	background-color: #999;
+}
+.line_number_frame {
+	width: 60px;
+	border-right: 1px solid rgb(56, 56, 56);
+	background-color: rgb(24, 24, 24);
+	padding: 4px 16px 400px 0;
+	font-family: 'Sawarabi Gothic', sans-serif;
+	font-weight: 300;
+	line-height: 24px;
+}
+.line_number_frame > .line_number {
+	text-align: right;
+	background-color: rgb(24, 24, 24);
+	color: rgb(160, 160, 160);
+	font-size: 14px;
+}
+textarea.sweEditor {
+	border: 0px solid green;
+	padding: 5px;
+	width: 100%;
+	box-sizing: content-box;
+	background-color: rgb(34, 34, 34);
+	color: #eee;
+	font-family: 'M PLUS 1 Code', monospace;
+	font-size: 14px;
+	line-height: 24px;
+	word-break: break-all;
+	resize: none;
+	overflow: hidden;
+	z-index: 2;
+}
+textarea.sweEditor:focus {
+	outline: none;
+}
+textarea.sweEditor::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+.line_height_investigate {
+	position: absolute;
+	top: 430px;
+/*	top: 16px;*/
+	left: 76px;
+	border: 0px solid purple;
+	box-sizing: content-box;
+	padding: 0 5px;
+	color: #aae;
+	font-family: 'M PLUS 1 Code', monospace;
+	font-size: 14px;
+	line-height: 24px;
+	white-space: pre-wrap;
+	word-break: break-all;
+	scrollbar-width: 3px;
+	scrollbar-color: #999 transparent;
+	overflow: auto;
+}
+.line_height_investigate::-webkit-scrollbar {
+	width: 3px;
+	height: 3px;
+}
+.line_height_investigate::-webkit-scrollbar-track{
+	background-color: transparent;
+}
+.line_height_investigate::-webkit-scrollbar-thumb{
+	background-color: #999;
+}
