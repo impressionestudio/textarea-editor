@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/sweEditor.css">
+	<script defer src="/js/sweEditor.js"></script>
+	<title>SWE-EDITOR</title>
+</head>
+<body>
+
+	<textarea id="develop" class="sweEditor" spellcheck="false">ABCD日本語
+EFGH英語じゃない
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+IJKL２バイト文字
+	MNOPインデントされている
+QRSTインデントされてない
+UVWXこれは６行目
+YZアルファベット終わり
+ABCD新たな旅立ち
+EFGHここは９行目です
+IJKLここは１０行目です
+MNOPそろそろスクロール範囲
+QRST最後の行です
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@300&family=Sawarabi+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: #333;
+	color: #eee;
+}
+
+#develop {
+	width: 800px;
+	height: 400px;
+}
+
+.sweEditor_frame {
+	display: inline-flex;
+	padding: 5px;
+	margin: 10px;
+	border: 1px solid #bbb;
+	scrollbar-width: 3px;
+	scrollbar-color: #999 transparent;
+	overflow: auto;
+}
+
+.sweEditor_frame::-webkit-scrollbar {
+	width: 3px;
+	height: 3px;
+}
+.sweEditor_frame::-webkit-scrollbar-track{
+	background-color: transparent;
+}
+.sweEditor_frame::-webkit-scrollbar-thumb{
+	background-color: #999;
+}
+.line_number_frame {
+	width: 60px;
+	border: 0px solid blue;
+	padding: 4px 20px 4px 0;
+	font-family: 'Sawarabi Gothic', sans-serif;
+	font-family: 'M PLUS 1 Code', monospace;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 24px;
+}
+.line_number_frame > .line_number {
+	text-align: right;
+	color: #aaa;
+}
+textarea.sweEditor {
+	border: 0px solid green;
+	padding: 5px;
+	width: 100%;
+	box-sizing: content-box;
+	background-color: transparent;
+	font-family: 'M PLUS 1 Code', monospace;
+	font-size: 16px;
+	line-height: 24px;
+	word-break: break-all;
+	resize: none;
+	overflow: hidden;
+	z-index: 2;
+}
+textarea.sweEditor:focus {
+	outline: none;
+}
+textarea.sweEditor::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+}
+.line_height_investigate {
+	position: absolute;
+	top: 430px;
+/*	top: 16px;*/
+	left: 76px;
+	border: 0px solid purple;
+	box-sizing: content-box;
+	padding: 0 5px;
+	color: #aae;
+	font-family: 'M PLUS 1 Code', monospace;
+	font-size: 16px;
+	line-height: 24px;
+	white-space: pre-wrap;
+	word-break: break-all;
+	scrollbar-width: 3px;
+	scrollbar-color: #999 transparent;
+	overflow: auto;
+}
+.line_height_investigate::-webkit-scrollbar {
+	width: 3px;
+	height: 3px;
+}
+.line_height_investigate::-webkit-scrollbar-track{
+	background-color: transparent;
+}
+.line_height_investigate::-webkit-scrollbar-thumb{
+	background-color: #999;
+}
+	</textarea>
+
+</body>
+</html>
