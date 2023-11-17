@@ -14,13 +14,17 @@ class sweEditor {
 	frNode;	// frame node
 	lnNode;	// line number frame node
 	txNode;	// textarea node
-	hvNode;	// invesigater node
+	txWidth;	// textarea width
+	letterWidth = 8;
+//	hvNode;	// invesigater node
 	sele = {start:0,end:0};	// selection letter number {start,end}
 	lineNum = {start:0,end:0};	// target line number
 	deleteString;
 	compositStatus = false;
 	composit = {};
+	caLineNum;
 	lineHeight;
+	lineArr = [];
 
 
 	/*--------------------------------------------------
@@ -31,17 +35,24 @@ class sweEditor {
 		this.txNode = txNode;
 		this.lineHeight = Number(window.getComputedStyle(this.txNode)["lineHeight"].replace(/px$/,""));
 
+		this.lineNumber = document.createElement("div");
+		this.lineNumber.classList.add("line_number");
+
 		// FrameやLineNumber及び高さ計算用要素を追加する
 		this.attachFrame();
 
 		// textareaの高さを内容に合わせて設定する
 		this.adjustSize();
 
-		// 行番号を全行に付加する
-		this.lineNumbers_all();
+		setTimeout(()=>{
 
-		// イベントを付加
-		this.attachEvents();
+			// 行番号を全行に付加する
+			this.lineNumbers_all();
+
+			// イベントを付加
+			this.attachEvents();
+
+		});
 
 	}
 
@@ -76,7 +87,7 @@ class sweEditor {
 
 			// 選択行番号の取得
 			this.lineNum.start = this.getLineNum(this.sele.start);
-			this.lineNum.end = this.getLineNum(this.sele.end);
+			this.lineNum.end = this.getLineNum(this.sele.end) ;
 
 
 			// タブ挿入
@@ -151,12 +162,16 @@ class sweEditor {
 		}
 
 		// 入力データが複数行ある
-		let targetLine = {start:this.lineNum.start,end:this.lineNum.start};
+		let targetLine = {
+			start: this.lineNum.start,
+			end: this.getLineNum(this.txNode.selectionEnd)
+		};
 		if (e.insertData) {
 			targetLine.end = targetLine.start + (e.insertData.match(/\n/) ? e.insertData.match(/\n/g).length : 0);
 		}
 
 		// 対象行番号を追加
+		this.lineArr = [];
 		for (let i=targetLine.start; i<=targetLine.end; i++) {
 			// 行番号を一行追加
 			this.addLineNumber(i,this.pickSpecLine(i));
@@ -180,10 +195,15 @@ class sweEditor {
 	--------------------------------------------------*/
 	pickSpecLine = (lineNum) => {
 
-		const regExp = new RegExp("^(?<=([^\n]*\n){"+lineNum+"})([^\n]*)(?=\n.*)$","sm");
-		let stringMatch = this.txNode.value.match(regExp);
+//		const regExp = new RegExp("^(?<=([^\n]*\n){"+lineNum+"})([^\n]*)(?=\n.*)$","sm");
+//		let stringMatch = this.txNode.value.match(regExp);
 
-		return stringMatch[0];
+		if (this.lineArr.length === 0) {
+			this.lineArr = this.txNode.value.split(/\n/);
+		}
+		return this.lineArr[lineNum];
+
+//		return stringMatch == null ? null : stringMatch[0];
 
 	};
 
@@ -192,12 +212,16 @@ class sweEditor {
 		行番号の取得
 	--------------------------------------------------*/
 	getLineNum = (letterNum) => {
-
+/*
 		letterNum = letterNum > this.txNode.value.length ? this.txNode.value.length : letterNum;
 		const regExp = new RegExp("^.{"+letterNum+"}","sm");
 		const stringHead = this.txNode.value.match(regExp);
 		const lineNumMatch = stringHead[0].match(/\n/g);
-		const lineNum = !lineNumMatch ? 0 : lineNumMatch.length;
+*/
+
+//		const lineNumMatch = this.txNode.value.slice(0,letterNum).match(/\n/g);
+//		const lineNum = !lineNumMatch ? 0 : lineNumMatch.length;
+		const lineNum = this.txNode.value.slice(0,letterNum).split(/\n/).length - 1;
 
 		return lineNum;
 
@@ -208,13 +232,20 @@ class sweEditor {
 		行番号を一行追加
 	--------------------------------------------------*/
 	addLineNumber = (i,line) => {
-
-		this.hvNode.innerText = line;
+/*
+		this.hvNode.textContent = line;
 		const height = this.hvNode.clientHeight==0 ? this.lineHeight : this.hvNode.clientHeight;
+*/
 
-		const lineNumber = document.createElement("div");
+		let lc = 0;
+		for (let i = 0,ci = line.length; i<ci; i++) {
+			lc += line.charCodeAt(i)===9 ? 8-lc%8 : (line.charCodeAt(i) < 300 ? 1 : 2);
+		}
+
+		let height = lc===0 ? this.lineHeight : Math.ceil(lc / this.caLineNum) * this.lineHeight;
+
+		const lineNumber = this.lineNumber.cloneNode(false);
 		lineNumber.innerText = i+1;
-		lineNumber.classList.add("line_number");
 		lineNumber.style.height = height+"px";
 
 		if (this.lnNode.children[i]) {
@@ -232,7 +263,7 @@ class sweEditor {
 	--------------------------------------------------*/
 	adjustSize = () => {
 
-		const height = this.txNode.scrollHeight;
+		const height = this.txNode.scrollHeight - 10;
 
 		this.txNode.style.height = height+"px";
 		this.lnNode.style.height = (height+40)+"px";
@@ -268,14 +299,19 @@ class sweEditor {
 		this.frNode.style.height = txStyle.height;
 
 		// Investigate
-		this.hvNode = document.createElement("div");
-		this.hvNode.classList.add("line_height_investigate");
+//		this.hvNode = document.createElement("div");
+//		this.hvNode.classList.add("line_height_investigate");
 
-		this.frNode.append(this.hvNode);
+//		this.frNode.append(this.hvNode);
 
-		const txStyle2 = getComputedStyle(this.txNode);
+		let txStyle2 = getComputedStyle(this.txNode);
 		this.txNode.style.width = txStyle2.width;
-		this.hvNode.style.width = txStyle2.width;
+//		this.hvNode.style.width = txStyle2.width;
+
+		setTimeout(()=>{
+			this.txWidth = Number(txStyle2.width.replace(/px/,""));
+			this.caLineNum = Math.floor(this.txWidth / this.letterWidth); 
+		});
 
 	};
 
@@ -307,8 +343,6 @@ class sweEditor {
 		}
 		
 	};
-
-
 
 
 

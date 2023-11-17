@@ -37,7 +37,7 @@
 	background-color: #999;
 }
 .line_number_frame {
-	width: 60px;
+	width: 70px;
 	border-right: 1px solid rgb(56, 56, 56);
 	background-color: rgb(24, 24, 24);
 	padding: 4px 16px 400px 0;
@@ -61,6 +61,7 @@ textarea.sweEditor {
 	font-family: 'M PLUS 1 Code', monospace;
 	font-size: 14px;
 	line-height: 24px;
+	letter-spacing: 1px;
 	word-break: break-all;
 	resize: none;
 	overflow: hidden;
@@ -75,13 +76,12 @@ textarea.sweEditor::-webkit-scrollbar {
 }
 .line_height_investigate {
 	position: absolute;
-	top: 430px;
+	top: 20px;
 /*	top: 16px;*/
-	left: 76px;
+	left: 60px;
 	border: 0px solid purple;
 	box-sizing: content-box;
 	padding: 0 5px;
-	color: #aae;
 	font-family: 'M PLUS 1 Code', monospace;
 	font-size: 14px;
 	line-height: 24px;
@@ -90,6 +90,9 @@ textarea.sweEditor::-webkit-scrollbar {
 	scrollbar-width: 3px;
 	scrollbar-color: #999 transparent;
 	overflow: auto;
+	color: transparent;
+	background-color: transparent;
+	z-index: 0;
 }
 .line_height_investigate::-webkit-scrollbar {
 	width: 3px;
