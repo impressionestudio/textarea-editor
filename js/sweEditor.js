@@ -16,7 +16,6 @@ class sweEditor {
 	txNode;	// textarea node
 	txWidth;	// textarea width
 	letterWidth = {};
-//	hvNode;	// invesigater node
 	sele = {start:0,end:0};	// selection letter number {start,end}
 	lineNum = {start:0,end:0};	// target line number
 	deleteString;
