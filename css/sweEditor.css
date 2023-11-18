@@ -1,6 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
 
+
+:root {
+	--sweEditor-background-color: rgb(34, 34, 34);
+	--sweEditor-font-color:	rgb(255, 255, 255);
+	--sweEditor-border-color: rgb(120, 120, 120);
+	--sweEditor-font-family: 'M PLUS 1 Code', monospace;
+	--sweEditor-font-size: 14px;
+	--sweEditor-font-weight: 400;
+	--sweEditor-letter-spacing: 1px;
+	--sweEditor-line-height: 24px;
+
+	--sweEditor-lineNumber-background-color: rgb(24, 24, 24);
+	--sweEditor-lineNumber-font-color:	rgb(160, 160, 160);
+	--sweEditor-lineNumber-borderRight-color: rgb(64, 64, 64);
+	--sweEditor-lineNumber-font-family: 'Sawarabi Gothic', sans-serif;
+	--sweEditor-lineNumber-font-size: 14px;
+	--sweEditor-lineNumber-font-weight: 300;
+	--sweEditor-lineNumber-line-height: 24px;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -8,18 +28,17 @@
 	background-color: rgb(84, 84, 84);
 }
 
-#develop {
+#fugafuga {
 	width: 800px;
 	height: 400px;
-	font-size: 14px;
 }
 
 .sweEditor_frame {
 	display: inline-flex;
 	padding: 0 5px 0 0;
 	margin: 10px;
-	border: 1px solid #bbb;
-	background-color: rgb(34, 34, 34);
+	border: 1px solid var(--sweEditor-border-color);
+	background-color: var(--sweEditor-background-color);
 	scrollbar-width: 3px;
 	scrollbar-color: #999 transparent;
 	overflow: auto;
@@ -37,31 +56,31 @@
 }
 .line_number_frame {
 	width: 80px;
-	border-right: 1px solid rgb(56, 56, 56);
-	background-color: rgb(24, 24, 24);
-	padding: 4px 16px 400px 0;
-	font-family: 'Sawarabi Gothic', sans-serif;
-	font-weight: 300;
-	line-height: 24px;
+	border-right: 1px solid var(--sweEditor-lineNumber-borderRight-color);
+	background-color: var(--sweEditor-lineNumber-background-color);
+	padding: 4px 16px 100% 0;
+	font-family: var(--sweEditor-lineNumber-font-family);
+	font-weight: var(--sweEditor-lineNumber-font-weight);
+	line-height: var(--sweEditor-lineNumber-line-height);
 }
 .line_number_frame > .line_number {
 	text-align: right;
-	background-color: rgb(24, 24, 24);
-	color: rgb(160, 160, 160);
-	font-size: 14px;
+	background-color: var(--sweEditor-lineNumber-background-color);
+	color: var(--sweEditor-lineNumber-font-color);
+	font-size: var(--sweEditor-lineNumber-font-size);
 }
 textarea.sweEditor {
-	border: 0px solid green;
 	padding: 5px;
 	width: 100%;
 	box-sizing: content-box;
-	background-color: rgb(34, 34, 34);
+	background-color: var(--sweEditor-background-color);
 	color: #fff;
-    font-family: 'M PLUS 1 Code', monospace;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 24px;
-	letter-spacing: 1px;
+    font-family: var(--sweEditor-font-family);
+	font-weight: var(--sweEditor-font-weight);
+	font-size: var(--sweEditor-font-size);
+	line-height: var(--sweEditor-line-height);
+	letter-spacing: var(--sweEditor-letter-spacing);
+	border: none;
 	word-break: break-all;
 	resize: none;
 	overflow: hidden;
@@ -80,11 +99,11 @@ textarea.sweEditor::-webkit-scrollbar {
 	left: 60px;
 	box-sizing: content-box;
 	padding: 0;
-    font-family: 'M PLUS 1 Code', monospace;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 24px;
-	letter-spacing: 1px;
+    font-family: var(--sweEditor-font-family);
+	font-weight: var(--sweEditor-font-weight);
+	font-size: var(--sweEditor-font-size);
+	line-height: var(--sweEditor-line-height);
+	letter-spacing: var(--sweEditor-letter-spacing);
 	color: transparent;
 	background-color: transparent;
 	z-index: -2;
