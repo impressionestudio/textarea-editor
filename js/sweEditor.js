@@ -15,7 +15,7 @@ class sweEditor {
 	lnNode;	// line number frame node
 	txNode;	// textarea node
 	txWidth;	// textarea width
-	letterWidth = 8;
+	letterWidth = {};
 //	hvNode;	// invesigater node
 	sele = {start:0,end:0};	// selection letter number {start,end}
 	lineNum = {start:0,end:0};	// target line number
@@ -31,7 +31,7 @@ class sweEditor {
 		コンストラクタ
 	--------------------------------------------------*/
 	constructor (txNode) {
-		
+
 		this.txNode = txNode;
 		this.lineHeight = Number(window.getComputedStyle(this.txNode)["lineHeight"].replace(/px$/,""));
 
@@ -40,6 +40,9 @@ class sweEditor {
 
 		// FrameやLineNumber及び高さ計算用要素を追加する
 		this.attachFrame();
+
+		// 文字の幅を計測する
+		this.measureLetterSize();
 
 		// textareaの高さを内容に合わせて設定する
 		this.adjustSize();
@@ -87,7 +90,7 @@ class sweEditor {
 
 			// 選択行番号の取得
 			this.lineNum.start = this.getLineNum(this.sele.start);
-			this.lineNum.end = this.getLineNum(this.sele.end) ;
+			this.lineNum.end = this.getLineNum(this.sele.end);
 
 
 			// タブ挿入
@@ -195,15 +198,11 @@ class sweEditor {
 	--------------------------------------------------*/
 	pickSpecLine = (lineNum) => {
 
-//		const regExp = new RegExp("^(?<=([^\n]*\n){"+lineNum+"})([^\n]*)(?=\n.*)$","sm");
-//		let stringMatch = this.txNode.value.match(regExp);
-
 		if (this.lineArr.length === 0) {
 			this.lineArr = this.txNode.value.split(/\n/);
 		}
-		return this.lineArr[lineNum];
 
-//		return stringMatch == null ? null : stringMatch[0];
+		return this.lineArr[lineNum];
 
 	};
 
@@ -212,18 +211,8 @@ class sweEditor {
 		行番号の取得
 	--------------------------------------------------*/
 	getLineNum = (letterNum) => {
-/*
-		letterNum = letterNum > this.txNode.value.length ? this.txNode.value.length : letterNum;
-		const regExp = new RegExp("^.{"+letterNum+"}","sm");
-		const stringHead = this.txNode.value.match(regExp);
-		const lineNumMatch = stringHead[0].match(/\n/g);
-*/
 
-//		const lineNumMatch = this.txNode.value.slice(0,letterNum).match(/\n/g);
-//		const lineNum = !lineNumMatch ? 0 : lineNumMatch.length;
-		const lineNum = this.txNode.value.slice(0,letterNum).split(/\n/).length - 1;
-
-		return lineNum;
+		return this.txNode.value.slice(0,letterNum).split(/\n/).length - 1;
 
 	};
 
@@ -231,18 +220,25 @@ class sweEditor {
 	/*--------------------------------------------------
 		行番号を一行追加
 	--------------------------------------------------*/
-	addLineNumber = (i,line) => {
-/*
-		this.hvNode.textContent = line;
-		const height = this.hvNode.clientHeight==0 ? this.lineHeight : this.hvNode.clientHeight;
-*/
+	addLineNumber = (i,line=null) => {
 
-		let lc = 0;
-		for (let i = 0,ci = line.length; i<ci; i++) {
-			lc += line.charCodeAt(i)===9 ? 8-lc%8 : (line.charCodeAt(i) < 300 ? 1 : 2);
+		let tLLC = 0;	// the line letter count
+		let tLLB = 0; 	// the line letter byte
+		let tLW  = 0;	// the line width
+		let ci = line == null ? 0 : line.length;	// letter amount of the line
+		for (; tLLC<ci; tLLC++) {
+			let byte = line.charCodeAt(tLLC) < 300 ? 1 : 2;
+			// タブの場合の幅計測
+			if (line.charCodeAt(tLLC)===9) {
+				tLLB =  Math.ceil(tLLB / 8) * 8;
+				tLW = Math.ceil(tLLB / 8) * 8 * this.letterWidth[1];
+			}
+			else {
+				tLLB += byte;
+				tLW += this.letterWidth[byte];
+			}
 		}
-
-		let height = lc===0 ? this.lineHeight : Math.ceil(lc / this.caLineNum) * this.lineHeight;
+		let height = ci===0 ? this.lineHeight : Math.ceil(tLW / this.txWidth) * this.lineHeight;
 
 		const lineNumber = this.lineNumber.cloneNode(false);
 		lineNumber.innerText = i+1;
@@ -299,19 +295,34 @@ class sweEditor {
 		this.frNode.style.height = txStyle.height;
 
 		// Investigate
-//		this.hvNode = document.createElement("div");
-//		this.hvNode.classList.add("line_height_investigate");
-
-//		this.frNode.append(this.hvNode);
-
 		let txStyle2 = getComputedStyle(this.txNode);
 		this.txNode.style.width = txStyle2.width;
-//		this.hvNode.style.width = txStyle2.width;
 
 		setTimeout(()=>{
 			this.txWidth = Number(txStyle2.width.replace(/px/,""));
-			this.caLineNum = Math.floor(this.txWidth / this.letterWidth); 
 		});
+
+	};
+
+
+	/*--------------------------------------------------
+		１文字の文字幅を計測しておく
+	--------------------------------------------------*/
+	measureLetterSize = () => {
+
+		let letterSizeMeasure = document.createElement('div');
+		letterSizeMeasure.classList.add("letter_size_measure");
+		this.frNode.insertBefore(letterSizeMeasure,this.txNode);
+
+		letterSizeMeasure.textContent = "あ";
+		let lsmStyle = getComputedStyle(letterSizeMeasure);
+		this.letterWidth[2] = Number(lsmStyle.width.replace(/px/,""));
+
+		letterSizeMeasure.textContent = "A";
+		lsmStyle = getComputedStyle(letterSizeMeasure);
+		this.letterWidth[1] = Number(lsmStyle.width.replace(/px/,""));
+
+		letterSizeMeasure.remove();
 
 	};
 

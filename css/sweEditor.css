@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@300&family=Sawarabi+Gothic&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
 
 * {
@@ -37,7 +36,7 @@
 	background-color: #999;
 }
 .line_number_frame {
-	width: 70px;
+	width: 80px;
 	border-right: 1px solid rgb(56, 56, 56);
 	background-color: rgb(24, 24, 24);
 	padding: 4px 16px 400px 0;
@@ -57,8 +56,9 @@ textarea.sweEditor {
 	width: 100%;
 	box-sizing: content-box;
 	background-color: rgb(34, 34, 34);
-	color: #eee;
-	font-family: 'M PLUS 1 Code', monospace;
+	color: #fff;
+    font-family: 'M PLUS 1 Code', monospace;
+	font-weight: 400;
 	font-size: 14px;
 	line-height: 24px;
 	letter-spacing: 1px;
@@ -74,33 +74,18 @@ textarea.sweEditor::-webkit-scrollbar {
 	width: 0;
 	height: 0;
 }
-.line_height_investigate {
-	position: absolute;
+.letter_size_measure {
+	display: inline-block;
 	top: 20px;
-/*	top: 16px;*/
 	left: 60px;
-	border: 0px solid purple;
 	box-sizing: content-box;
-	padding: 0 5px;
-	font-family: 'M PLUS 1 Code', monospace;
+	padding: 0;
+    font-family: 'M PLUS 1 Code', monospace;
+	font-weight: 400;
 	font-size: 14px;
 	line-height: 24px;
-	white-space: pre-wrap;
-	word-break: break-all;
-	scrollbar-width: 3px;
-	scrollbar-color: #999 transparent;
-	overflow: auto;
+	letter-spacing: 1px;
 	color: transparent;
 	background-color: transparent;
-	z-index: 0;
-}
-.line_height_investigate::-webkit-scrollbar {
-	width: 3px;
-	height: 3px;
-}
-.line_height_investigate::-webkit-scrollbar-track{
-	background-color: transparent;
-}
-.line_height_investigate::-webkit-scrollbar-thumb{
-	background-color: #999;
+	z-index: -2;
 }
