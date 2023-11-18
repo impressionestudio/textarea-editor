@@ -1,6 +1,6 @@
 window.onload = (e) => {
 
-	const sedt = document.querySelector(".sweEditor");
+	const sedt = document.getElementById("fugafuga");
 	if (sedt) {
 		new sweEditor(sedt);
 	}
@@ -32,10 +32,6 @@ class sweEditor {
 	constructor (txNode) {
 
 		this.txNode = txNode;
-		this.lineHeight = Number(window.getComputedStyle(this.txNode)["lineHeight"].replace(/px$/,""));
-
-		this.lineNumber = document.createElement("div");
-		this.lineNumber.classList.add("line_number");
 
 		// FrameやLineNumber及び高さ計算用要素を追加する
 		this.attachFrame();
@@ -68,14 +64,6 @@ class sweEditor {
 		this.txNode.addEventListener("compositionstart",(e)=>{
 
 			this.composit = {deleteString:this.deleteString,sele:{start:this.sele.start,end:this.sele.end},line:{start:this.lineNum.start,end:this.lineNum.end}};
-			this.compositStatus = true;
-
-		});
-
-		// 日本語文字入力終了
-		this.txNode.addEventListener("compositionend",(e)=>{
-
-			this.compositStatus = false;
 
 		});
 
@@ -238,7 +226,6 @@ class sweEditor {
 			}
 		}
 		let height = ci===0 ? this.lineHeight : Math.ceil(tLW / this.txWidth) * this.lineHeight;
-
 		const lineNumber = this.lineNumber.cloneNode(false);
 		lineNumber.innerText = i+1;
 		lineNumber.style.height = height+"px";
@@ -299,6 +286,11 @@ class sweEditor {
 
 		setTimeout(()=>{
 			this.txWidth = Number(txStyle2.width.replace(/px/,""));
+			this.frNode.append(this.txNode);
+
+			this.lineHeight = Number(window.getComputedStyle(this.txNode)["lineHeight"].replace(/px$/,""));
+			this.lineNumber = document.createElement("div");
+			this.lineNumber.classList.add("line_number");
 		});
 
 	};

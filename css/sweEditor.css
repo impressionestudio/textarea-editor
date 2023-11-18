@@ -54,7 +54,7 @@
 .sweEditor_frame::-webkit-scrollbar-thumb{
 	background-color: #999;
 }
-.line_number_frame {
+.sweEditor_frame .line_number_frame {
 	width: 80px;
 	border-right: 1px solid var(--sweEditor-lineNumber-borderRight-color);
 	background-color: var(--sweEditor-lineNumber-background-color);
@@ -63,13 +63,13 @@
 	font-weight: var(--sweEditor-lineNumber-font-weight);
 	line-height: var(--sweEditor-lineNumber-line-height);
 }
-.line_number_frame > .line_number {
+.sweEditor_frame .line_number_frame > .line_number {
 	text-align: right;
 	background-color: var(--sweEditor-lineNumber-background-color);
 	color: var(--sweEditor-lineNumber-font-color);
 	font-size: var(--sweEditor-lineNumber-font-size);
 }
-textarea.sweEditor {
+.sweEditor_frame textarea {
 	padding: 5px;
 	width: 100%;
 	box-sizing: content-box;
@@ -78,7 +78,7 @@ textarea.sweEditor {
     font-family: var(--sweEditor-font-family);
 	font-weight: var(--sweEditor-font-weight);
 	font-size: var(--sweEditor-font-size);
-	line-height: var(--sweEditor-line-height);
+	line-height: 24px;
 	letter-spacing: var(--sweEditor-letter-spacing);
 	border: none;
 	word-break: break-all;
@@ -86,14 +86,14 @@ textarea.sweEditor {
 	overflow: hidden;
 	z-index: 2;
 }
-textarea.sweEditor:focus {
+.sweEditor_frame textarea:focus {
 	outline: none;
 }
-textarea.sweEditor::-webkit-scrollbar {
+.sweEditor_frame textarea::-webkit-scrollbar {
 	width: 0;
 	height: 0;
 }
-.letter_size_measure {
+.sweEditor_frame .letter_size_measure {
 	display: inline-block;
 	top: 20px;
 	left: 60px;
@@ -102,7 +102,7 @@ textarea.sweEditor::-webkit-scrollbar {
     font-family: var(--sweEditor-font-family);
 	font-weight: var(--sweEditor-font-weight);
 	font-size: var(--sweEditor-font-size);
-	line-height: var(--sweEditor-line-height);
+	line-height: 24px;
 	letter-spacing: var(--sweEditor-letter-spacing);
 	color: transparent;
 	background-color: transparent;
