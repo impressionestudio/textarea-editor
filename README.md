@@ -1,7 +1,7 @@
 # textarea-editor
 Transform the HTML TEXTAREA tag into a basic text editor. The features include the inclusion of line numbers and the capability to input tabs.
 
-![Screen capture](/images/sweeditor.png)
+![Screen capture](sweeditor.png)
 
 <h3>HOW TO USE</h3>
 First, load the sweEditor.js and sweEditor.css files.
