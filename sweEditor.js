@@ -168,7 +168,7 @@ class sweEditor {
 		}
 
 		// 後ろの行番号を合わせる
-		for (let i=targetLine.end; i<this.txNode.value.match(/\n/gm).length; i++) {
+		for (let i=targetLine.end; i<=this.txNode.value.match(/\n/gm).length; i++) {
 			if (typeof this.lnNode.children[i] != "undefined") {
 				this.lnNode.children[i].innerText = i + 1;
 			}
